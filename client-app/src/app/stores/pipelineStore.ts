@@ -5,7 +5,7 @@ import agent from '../api/agent';
 
 configure({enforceActions: 'always'});
 
-class ActivityStore {
+class PipelineStore {
  @observable pipelineitems: IPipelineItem[] = []
   @observable activity: IPipelineItem | null = null;
   @observable loadingInitial = false;
@@ -124,4 +124,4 @@ class ActivityStore {
   // }
 }
 
-export default createContext(new ActivityStore());
+export default createContext(new PipelineStore());

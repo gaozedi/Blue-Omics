@@ -13,7 +13,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Persistence;
 using MediatR;
-using Application.Activities;
+using Application.Pipeline;
+
 
 namespace API
 {

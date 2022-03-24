@@ -1,12 +1,13 @@
 import React, { Fragment } from 'react';
 import { Container } from 'semantic-ui-react';
 import NavBar from '../../features/nav/NavBar';
-import PipelineDashboard from '../../features/activities/dashboard/PipelineDashboard';
 import { observer } from 'mobx-react-lite';
 import { Route, withRouter, RouteComponentProps } from 'react-router-dom';
 import HomePage from '../../features/home/HomePage';
-import ActivityForm from '../../features/activities/form/ActivityForm';
-import ActivityDetails from '../../features/activities/details/ActivityDetails';
+import PipelineDashboard from '../../features/pipeline/dashboard/PipelineDashboard';
+import ActivityDetails from '../../features/pipeline/details/ActivityDetails';
+import ActivityForm from '../../features/pipeline/form/ActivityForm';
+
 
 const App: React.FC<RouteComponentProps> = ({ location }) => {
 

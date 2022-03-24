@@ -4,13 +4,16 @@ using System.Threading.Tasks;
 using MediatR;
 using Persistence;
 
-namespace Application.Activities
+namespace Application.Pipeline
 {
-    public class Delete
+    public class Edit
     {
         public class Command : IRequest
         {
             public Guid Id { get; set; }
+            public string Title { get; set; }
+            public string Description { get; set; }
+            public string Category { get; set; }
         }
 
         public class Handler : IRequestHandler<Command>
@@ -23,12 +26,14 @@ namespace Application.Activities
 
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
             {
-                var activity = await _context.Activities.FindAsync(request.Id);
+                var item = await _context.PipelineItems.FindAsync(request.Id);    
 
-                if (activity == null)
-                    throw new Exception("Could not find activity");
+                if (item == null)
+                    throw new Exception("Could not find item");
 
-                _context.Remove(activity);              
+                item.Title = request.Title ?? item.Title;            
+                item.Description = request.Description ?? item.Description;            
+                item.Category = request.Category ?? item.Category;                       
 
                 var success = await _context.SaveChangesAsync() > 0;
 

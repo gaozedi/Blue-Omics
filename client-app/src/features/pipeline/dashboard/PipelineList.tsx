@@ -1,7 +1,7 @@
 import React, { useContext, Fragment } from 'react';
 import { Item, Label } from 'semantic-ui-react';
 import { observer } from 'mobx-react-lite';
-import ActivityStore from '../../../app/stores/activityStore';
+import ActivityStore from '../../../app/stores/pipelineStore';
 import PipelineListItem from './PipelineListItem';
 
 const PipelineList: React.FC = () => {

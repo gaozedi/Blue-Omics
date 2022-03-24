@@ -12,7 +12,7 @@ const PipelineListItem: React.FC<{ activity: IPipelineItem }> = ({ activity }) =
             <Item.Image size='tiny' circular src='/assets/user.png' />
             <Item.Content>
               <Item.Header as='a'>{activity.title}</Item.Header>
-              <Item.Description>Hosted by Bob</Item.Description>
+              <Item.Description>Fastaqc</Item.Description>
             </Item.Content>
           </Item>
         </Item.Group>
@@ -21,7 +21,7 @@ const PipelineListItem: React.FC<{ activity: IPipelineItem }> = ({ activity }) =
         <Icon name='clock' /> {activity.date}
         <Icon name='marker' /> {activity.venue}, {activity.city}
       </Segment> */}
-      <Segment secondary>Attendees will go here</Segment>
+      <Segment secondary>Quality Control</Segment>
       <Segment clearing>
         <span>{activity.description}</span>
         <Button

@@ -6,7 +6,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
 
-namespace Application.Activities
+namespace Application.Pipeline
 {
     public class List
     {
@@ -22,9 +22,9 @@ namespace Application.Activities
 
             public async Task<List<PipelineItem>> Handle(Query request, CancellationToken cancellationToken)
             {
-                var activities = await _context.Activities.ToListAsync();
+                var items = await _context.PipelineItems.ToListAsync();
 
-                return activities;
+                return items;
             }
         }
     }

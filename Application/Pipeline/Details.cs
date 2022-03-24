@@ -6,7 +6,7 @@ using Domain;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
-namespace Application.Activities
+namespace Application.Pipeline
 {
     public class Details
     {
@@ -27,8 +27,8 @@ namespace Application.Activities
             public async Task<PipelineItem> Handle(Query request, CancellationToken
             cancellationToken)
             {
-                var activity = await _context.Activities.FindAsync(request.Id);
-                return activity;
+                var item = await _context.PipelineItems.FindAsync(request.Id);
+                return item;
             }
         }
     }

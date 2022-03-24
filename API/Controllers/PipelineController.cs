@@ -1,11 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Application.Activities;
 using Domain;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-
+using Application.Pipeline;
 namespace API.Controllers
 {
     [Route("api/[controller]")]

@@ -8,25 +8,25 @@ namespace Persistence
     {
         public static void SeedData(DataContext context)
         {
-            if (!context.Activities.Any()) // if we don't have any activities
+            if (!context.PipelineItems.Any()) // if we don't have any activities
             {
                 var activities = new List<PipelineItem>{
                     new PipelineItem
                     {
-                    Title = "Past Activity 1",
-                    Description = "Activity 2 months ago",
-                    Category = "drinks",
+                    Title = "1. Quality Report",
+                    Description = "xxxx",
+                    Category = "upstream",
 
                     },
                     new PipelineItem
                     {
-                    Title = "Past Activity 2",
-                    Description = "Activity 1 month ago",
-                    Category = "culture",
+                    Title = "2. Quality and adapter trimming",
+                    Description = "xxxx",
+                    Category = "upstream",
                     }
 ////////////省略一部分/////////////////////////////////
                 };
-                context.Activities.AddRange(activities);
+                context.PipelineItems.AddRange(activities);
                 context.SaveChanges(); //只执行一次，不需要async
             }
         }

@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Domain;
 using MediatR;
 using Persistence;
-namespace Application.Activities
+namespace Application.Pipeline
 {
     public class Create
     {
@@ -28,7 +28,7 @@ namespace Application.Activities
             public async Task<Unit> Handle(Command request, CancellationToken
             cancellationToken)
             {
-                var activity = new PipelineItem
+                var item = new PipelineItem
                 {
                     Id = request.Id,
                     Title = request.Title,
@@ -36,7 +36,7 @@ namespace Application.Activities
                     Category = request.Category,
                 };
                 // not use async vcersion(AddAsync) because we are not using a special value generator(见函数描述)
-                _context.Activities.Add(activity);
+                _context.PipelineItems.Add(item);
                 //SaveChangesAsync会返回一个Int，是changes的数量,>1说明成功了
                 var success = await _context.SaveChangesAsync() > 0;
                 if (success)
