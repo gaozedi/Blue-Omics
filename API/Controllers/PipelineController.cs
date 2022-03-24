@@ -10,22 +10,22 @@ namespace API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ActivitiesController : ControllerBase
+    public class PipelineController : ControllerBase
     {
         private readonly IMediator _mediator;
-        public ActivitiesController(IMediator mediator)
+        public PipelineController(IMediator mediator)
         {
             _mediator = mediator;
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<Activity>>> List()
+        public async Task<ActionResult<List<PipelineItem>>> List()
         {
             return await _mediator.Send(new List.Query());
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Activity>> Details(Guid id)
+        public async Task<ActionResult<PipelineItem>> Details(Guid id)
         {
             return await _mediator.Send(new Details.Query{Id = id});
         }

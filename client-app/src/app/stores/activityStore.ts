@@ -1,44 +1,40 @@
 import { observable, action, computed, configure, runInAction } from 'mobx';
 import { createContext, SyntheticEvent } from 'react';
-import { IActivity } from '../models/activity';
+import { IPipelineItem } from '../models/pipelineitem';
 import agent from '../api/agent';
 
 configure({enforceActions: 'always'});
 
 class ActivityStore {
-  @observable activityRegistry = new Map();
-  @observable activity: IActivity | null = null;
+ @observable pipelineitems: IPipelineItem[] = []
+  @observable activity: IPipelineItem | null = null;
   @observable loadingInitial = false;
   @observable submitting = false;
   @observable target = '';
 
-  @computed get activitiesByDate() {
-    return this.groupActivitiesByDate(Array.from(this.activityRegistry.values()))
-  }
+  // @computed get activitiesByDate() {
+  //   return this.groupActivitiesByDate(Array.from(this.activityRegistry.values()))
+  // }
 
-  groupActivitiesByDate(activities: IActivity[]) {
-    const sortedActivities = activities.sort(
-      (a, b) => Date.parse(a.date) - Date.parse(b.date)
-    )
-    return Object.entries(sortedActivities.reduce((activities, activity) => {
-      const date = activity.date.split('T')[0];
-      activities[date] = activities[date] ? [...activities[date], activity] : [activity];
-      return activities;
-    }, {} as {[key: string]: IActivity[]}));
-  }
+  // groupActivitiesByDate(activities: IPipelineItem[]) {
+  //   const sortedActivities = activities.sort(
+  //     (a, b) => Date.parse(a.date) - Date.parse(b.date)
+  //   )
+  //   return Object.entries(sortedActivities.reduce((activities, activity) => {
+  //     const date = activity.date.split('T')[0];
+  //     activities[date] = activities[date] ? [...activities[date], activity] : [activity];
+  //     return activities;
+  //   }, {} as {[key: string]: IPipelineItem[]}));
+  // }
 
-  @action loadActivities = async () => {
+  @action loadItems = async () => {
     this.loadingInitial = true;
     try {
-      const activities = await agent.Activities.list();
+      const items = await agent.Activities.list();
       runInAction('loading activities', () => {
-        activities.forEach(activity => {
-          activity.date = activity.date.split('.')[0];
-          this.activityRegistry.set(activity.id, activity);
-        });
+        this.pipelineitems = items;
         this.loadingInitial = false;
       })
-      console.log(this.groupActivitiesByDate(activities));
     } catch (error) {
       runInAction('load activities error', () => {
         this.loadingInitial = false;
@@ -72,60 +68,60 @@ class ActivityStore {
   }
 
   getActivity = (id: string) => {
-    return this.activityRegistry.get(id);
+    return this.pipelineitems.filter(a => a.id === id)[0]
   }
 
-  @action createActivity = async (activity: IActivity) => {
-    this.submitting = true;
-    try {
-      await agent.Activities.create(activity);
-      runInAction('create activity', () => {
-        this.activityRegistry.set(activity.id, activity);
-        this.submitting = false;
-      })
-    } catch (error) {
-      runInAction('create activity error', () => {
-        this.submitting = false;
-      })
-      console.log(error);
-    }
-  };
+  // @action createActivity = async (activity: IActivity) => {
+  //   this.submitting = true;
+  //   try {
+  //     await agent.Activities.create(activity);
+  //     runInAction('create activity', () => {
+  //       this.activityRegistry.set(activity.id, activity);
+  //       this.submitting = false;
+  //     })
+  //   } catch (error) {
+  //     runInAction('create activity error', () => {
+  //       this.submitting = false;
+  //     })
+  //     console.log(error);
+  //   }
+  // };
 
-  @action editActivity = async (activity: IActivity) => {
-    this.submitting = true;
-    try {
-      await agent.Activities.update(activity);
-      runInAction('editing activity', () => {
-        this.activityRegistry.set(activity.id, activity);
-        this.activity = activity;
-        this.submitting = false;
-      })
-    } catch (error) {
-      runInAction('edit activity error', () => {
-        this.submitting = false;
-      })
-      console.log(error);
-    }
-  };
+  // @action editActivity = async (activity: IActivity) => {
+  //   this.submitting = true;
+  //   try {
+  //     await agent.Activities.update(activity);
+  //     runInAction('editing activity', () => {
+  //       this.activityRegistry.set(activity.id, activity);
+  //       this.activity = activity;
+  //       this.submitting = false;
+  //     })
+  //   } catch (error) {
+  //     runInAction('edit activity error', () => {
+  //       this.submitting = false;
+  //     })
+  //     console.log(error);
+  //   }
+  // };
 
-  @action deleteActivity = async (event: SyntheticEvent<HTMLButtonElement>, id: string) => {
-    this.submitting = true;
-    this.target = event.currentTarget.name;
-    try {
-      await agent.Activities.delete(id);
-      runInAction('deleting activity', () => {
-        this.activityRegistry.delete(id);
-        this.submitting = false;
-        this.target = '';
-      })
-    } catch (error) {
-      runInAction('delete activity error', () => {
-        this.submitting = false;
-        this.target = '';
-      })
-      console.log(error);
-    }
-  }
+  // @action deleteActivity = async (event: SyntheticEvent<HTMLButtonElement>, id: string) => {
+  //   this.submitting = true;
+  //   this.target = event.currentTarget.name;
+  //   try {
+  //     await agent.Activities.delete(id);
+  //     runInAction('deleting activity', () => {
+  //       this.activityRegistry.delete(id);
+  //       this.submitting = false;
+  //       this.target = '';
+  //     })
+  //   } catch (error) {
+  //     runInAction('delete activity error', () => {
+  //       this.submitting = false;
+  //       this.target = '';
+  //     })
+  //     console.log(error);
+  //   }
+  // }
 }
 
 export default createContext(new ActivityStore());

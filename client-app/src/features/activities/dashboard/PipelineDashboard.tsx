@@ -10,7 +10,7 @@ const PipelineDashboard: React.FC = () => {
   const activityStore = useContext(ActivityStore);
 
   useEffect(() => {
-    activityStore.loadActivities();
+    activityStore.loadItems();
   }, [activityStore]);
 
   if (activityStore.loadingInitial)

@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from 'axios';
-import { IActivity } from '../models/activity';
+import { IPipelineItem } from '../models/pipelineitem';
 
 axios.defaults.baseURL = 'http://localhost:5000/api';
 
@@ -16,11 +16,11 @@ const requests = {
 };
 
 const Activities = {
-    list: (): Promise<IActivity[]> => requests.get('/activities'),
-    details: (id: string) => requests.get(`/activities/${id}`),
-    create: (activity: IActivity) => requests.post('/activities', activity),
-    update: (activity: IActivity) => requests.put(`/activities/${activity.id}`, activity),
-    delete: (id: string) => requests.del(`/activities/${id}`)
+    list: (): Promise<IPipelineItem[]> => requests.get('/pipeline'),
+    details: (id: string) => requests.get(`/pipeline/${id}`),
+    // create: (activity: IActivity) => requests.post('/activities', activity),
+    // update: (activity: IActivity) => requests.put(`/activities/${activity.id}`, activity),
+    // delete: (id: string) => requests.del(`/activities/${id}`)
 }
 
 export default {

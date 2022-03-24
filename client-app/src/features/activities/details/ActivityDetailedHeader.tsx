@@ -1,6 +1,6 @@
 import React from 'react';
 import { Segment, Item, Header, Button, Image } from 'semantic-ui-react';
-import { IActivity } from '../../../app/models/activity';
+import { IPipelineItem } from '../../../app/models/pipelineitem';
 import { observer } from 'mobx-react-lite';
 
 const activityImageStyle = {
@@ -16,7 +16,7 @@ const activityImageTextStyle = {
   color: 'white'
 };
 
-const ActivityDetailedHeader: React.FC<{activity: IActivity}> = ({activity}) => {
+const ActivityDetailedHeader: React.FC<{activity: IPipelineItem}> = ({activity}) => {
   return (
     <Segment.Group>
       <Segment basic attached='top' style={{ padding: '0' }}>
@@ -34,7 +34,7 @@ const ActivityDetailedHeader: React.FC<{activity: IActivity}> = ({activity}) => 
                   content={activity.title}
                   style={{ color: 'white' }}
                 />
-                <p>{activity.date}</p>
+                {/* <p>{activity.date}</p> */}
                 <p>
                   Hosted by <strong>Bob</strong>
                 </p>

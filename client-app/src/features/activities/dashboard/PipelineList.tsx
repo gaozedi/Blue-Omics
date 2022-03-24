@@ -6,16 +6,16 @@ import PipelineListItem from './PipelineListItem';
 
 const PipelineList: React.FC = () => {
   const activityStore = useContext(ActivityStore);
-  const { activitiesByDate } = activityStore;
+  const items = activityStore.pipelineitems
   return (
     <Fragment>
-      {activitiesByDate.map(([group, activities]) => (
-        <Fragment key={group}>
+      {items.map(item=> (
+        <Fragment >
           <Label size='large' color='blue'>
-            {group}
+        
           </Label>
           <Item.Group divided>
-            {activities.map(activity => (
+            {items.map(activity => (
               <PipelineListItem key={activity.id} activity={activity} />
             ))}
           </Item.Group>
