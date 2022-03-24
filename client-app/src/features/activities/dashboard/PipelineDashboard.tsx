@@ -1,11 +1,11 @@
 import React, { useContext, useEffect } from 'react';
 import { Grid } from 'semantic-ui-react';
-import ActivityList from './ActivityList';
+import PipelineList from './PipelineList';
 import { observer } from 'mobx-react-lite';
 import ActivityStore from '../../../app/stores/activityStore';
 import LoadingComponent from '../../../app/layout/LoadingComponent';
 
-const ActivityDashboard: React.FC = () => {
+const PipelineDashboard: React.FC = () => {
 
   const activityStore = useContext(ActivityStore);
 
@@ -14,12 +14,12 @@ const ActivityDashboard: React.FC = () => {
   }, [activityStore]);
 
   if (activityStore.loadingInitial)
-    return <LoadingComponent content='Loading activities' />;
+    return <LoadingComponent content='Loading the pipeline' />;
 
   return (
     <Grid>
       <Grid.Column width={10}>
-        <ActivityList />
+        <PipelineList />
       </Grid.Column>
       <Grid.Column width={6}>
         <h2>Activity filters</h2>
@@ -28,4 +28,4 @@ const ActivityDashboard: React.FC = () => {
   );
 };
 
-export default observer(ActivityDashboard);
+export default observer(PipelineDashboard);

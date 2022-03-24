@@ -13,11 +13,11 @@ const HomePage = () => {
             alt='logo'
             style={{ marginBottom: 12 }}
           />
-          Reactivities
+          Blue Omics
         </Header>
-        <Header as='h2' inverted content='Welcome to Reactivities' />
+        <Header as='h2' inverted content='Full suite upstream - downstream analysis for just' />
         <Button as={Link} to='/activities' size='huge' inverted>
-          Take me to the activities!
+          One Click
         </Button>
       </Container>
     </Segment>

@@ -2,9 +2,9 @@ import React, { useContext, Fragment } from 'react';
 import { Item, Label } from 'semantic-ui-react';
 import { observer } from 'mobx-react-lite';
 import ActivityStore from '../../../app/stores/activityStore';
-import ActivityListItem from './ActivityListItem';
+import PipelineListItem from './PipelineListItem';
 
-const ActivityList: React.FC = () => {
+const PipelineList: React.FC = () => {
   const activityStore = useContext(ActivityStore);
   const { activitiesByDate } = activityStore;
   return (
@@ -16,7 +16,7 @@ const ActivityList: React.FC = () => {
           </Label>
           <Item.Group divided>
             {activities.map(activity => (
-              <ActivityListItem key={activity.id} activity={activity} />
+              <PipelineListItem key={activity.id} activity={activity} />
             ))}
           </Item.Group>
         </Fragment>
@@ -25,4 +25,4 @@ const ActivityList: React.FC = () => {
   );
 };
 
-export default observer(ActivityList);
+export default observer(PipelineList);
