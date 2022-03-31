@@ -1,5 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
 import { IPipelineItem } from '../models/pipelineitem';
+import { IUserJob } from '../models/userjob';
 
 axios.defaults.baseURL = 'http://localhost:5000/api';
 
@@ -18,7 +19,8 @@ const requests = {
 const Activities = {
     list: (): Promise<IPipelineItem[]> => requests.get('/pipeline'),
     details: (id: string) => requests.get(`/pipeline/${id}`),
-    // create: (activity: IActivity) => requests.post('/activities', activity),
+    submitjob: (job: IUserJob) => requests.post('/SSH', job),
+    servercheck: () => requests.get('/SSH'),
     // update: (activity: IActivity) => requests.put(`/activities/${activity.id}`, activity),
     // delete: (id: string) => requests.del(`/activities/${id}`)
 }

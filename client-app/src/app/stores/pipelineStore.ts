@@ -2,6 +2,7 @@ import { observable, action, computed, configure, runInAction } from 'mobx';
 import { createContext, SyntheticEvent } from 'react';
 import { IPipelineItem } from '../models/pipelineitem';
 import agent from '../api/agent';
+import { IUserJob } from '../models/userjob';
 
 configure({enforceActions: 'always'});
 
@@ -11,6 +12,7 @@ class PipelineStore {
   @observable loadingInitial = false;
   @observable submitting = false;
   @observable target = '';
+  @observable file: FileList | null = null
 
   // @computed get activitiesByDate() {
   //   return this.groupActivitiesByDate(Array.from(this.activityRegistry.values()))
@@ -42,7 +44,7 @@ class PipelineStore {
     }
   };
 
-  @action loadActivity = async (id: string) => {
+  @action loadItem = async (id: string) => {
     let activity = this.getActivity(id);
     if (activity) {
       this.activity = activity;
@@ -87,6 +89,22 @@ class PipelineStore {
   //   }
   // };
 
+  
+  @action checkServerStatus = async () => {
+    this.submitting = true;
+    try {
+      await agent.Activities.servercheck()
+      runInAction('check server', () => {
+        this.submitting = false;
+      })
+    } catch (error) {
+      runInAction('check activity error', () => {
+        this.submitting = false;
+      })
+      console.log(error);
+    }
+  };
+
   // @action editActivity = async (activity: IActivity) => {
   //   this.submitting = true;
   //   try {
@@ -122,6 +140,26 @@ class PipelineStore {
   //     console.log(error);
   //   }
   // }
+
+
+@action onFileChange = (file: FileList) => { 
+    // Update the state 
+    this.file = file
+    console.log(this.file.length);
+  }; 
+
+// On file upload (click the upload button) 
+@action onFileUpload = () => { 
+  // Create an object of formData 
+  const formData = new FormData(); 
+ 
+  // Update the formData object 
+  formData.append( 
+    'asda',
+    this.file![0],
+  ); 
+}; 
+
 }
 
 export default createContext(new PipelineStore());

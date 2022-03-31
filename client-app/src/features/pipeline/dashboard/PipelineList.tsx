@@ -9,15 +9,15 @@ const PipelineList: React.FC = () => {
   const items = activityStore.pipelineitems
   return (
     <Fragment>
-      {items.map(item=> (
+      {items.map(item => (
         <Fragment >
           <Label size='large' color='blue'>
-        
+            {item.category}
           </Label>
           <Item.Group divided>
-            {items.map(activity => (
-              <PipelineListItem key={activity.id} activity={activity} />
-            ))}
+
+            <PipelineListItem key={item.id} activity={item} />
+
           </Item.Group>
         </Fragment>
       ))}

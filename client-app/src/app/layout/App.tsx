@@ -5,7 +5,7 @@ import { observer } from 'mobx-react-lite';
 import { Route, withRouter, RouteComponentProps } from 'react-router-dom';
 import HomePage from '../../features/home/HomePage';
 import PipelineDashboard from '../../features/pipeline/dashboard/PipelineDashboard';
-import ActivityDetails from '../../features/pipeline/details/ActivityDetails';
+import ItemDetails from '../../features/pipeline/details/ItemDetails';
 import ActivityForm from '../../features/pipeline/form/ActivityForm';
 
 
@@ -22,7 +22,7 @@ const App: React.FC<RouteComponentProps> = ({ location }) => {
             <NavBar />
             <Container style={{ marginTop: '7em' }}>
               <Route exact path='/activities' component={PipelineDashboard} />
-              <Route path='/activities/:id' component={ActivityDetails} />
+              <Route path='/activities/:id' component={ItemDetails} />
               <Route
                 key={location.key}
                 path={['/createActivity', '/manage/:id']}

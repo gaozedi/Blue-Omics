@@ -14,14 +14,14 @@ namespace Persistence
                     new PipelineItem
                     {
                     Title = "1. Quality Report",
-                    Description = "xxxx",
+                    Description = "previous step: none",
                     Category = "upstream",
-
+                    
                     },
                     new PipelineItem
                     {
                     Title = "2. Quality and adapter trimming",
-                    Description = "xxxx",
+                    Description = "previous step: 1. Quality Control",
                     Category = "upstream",
                     }
 ////////////省略一部分/////////////////////////////////
